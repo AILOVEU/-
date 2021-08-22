@@ -24,14 +24,27 @@ function quick(arr, left, right) {
     // 循环结束，j=i
     arr[left] = arr[i];
     arr[i] = pivot;
-    quick(arr, left, i - 1);
+    quick(arr, left, i-1);
     quick(arr, i + 1, right)
   }
 }
 
+// 测试用例
 let testArr = [];
-for (let i = 0; i < 100; i++) {
-  testArr.push(parseInt(Math.random() * (10 - 5 + 1)) + 5);
+let arrLen = 1000;
+let numMax = 100;
+let numMin = 1;
+for (let i = 0; i < arrLen; i++) {
+  testArr.push(parseInt(Math.random() * (numMax - numMin + 1)) + numMin);
 }
 quickSort(testArr)
+
+let sortFlag = 0;
+testArr.reduce((a,b) => {
+  if(a>b) {
+    sortFlag += 1;
+  }
+  return b;
+})
 console.log(testArr);
+console.log(`是否是升序排列：${sortFlag === 0 ? true : false}`);
