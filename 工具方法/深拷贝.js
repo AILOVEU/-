@@ -16,6 +16,9 @@ function deepClone(obj) {
         if (obj instanceof RegExp) {
             return new RegExp(obj);
         }
+        if(typeof obj === 'function') {
+            return new Function('return '+obj.toString()).call(this)
+        }
         // 数组
         if (Array.isArray(obj)) {
             let result = [];
