@@ -1,4 +1,30 @@
+/**
+ * 层序遍历，所有统一存储
+ * @param {*} root 
+ * @returns 
+ */
 function levelOrder(root) {
+    if(!root) {
+        return;
+    }
+    let queue = [root];
+    let res = [];
+    //  队里有内容就弹出
+    while(queue.length) {
+        let node = queue.shift();
+        res.push(node.val);
+        node.left && queue.push(node.left);
+        node.right && queue.push(node.right);
+    }
+    return res;
+}
+
+/**
+ * 层序遍历，每层单独存储
+ * @param {*} root 
+ * @returns 
+ */
+function _levelOrder(root) {
     // 如果root为空，直接返回
     if(!root) {
         return;
