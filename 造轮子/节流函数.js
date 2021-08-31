@@ -32,4 +32,20 @@ function throttle_settimeout(func,wait) {
 // 执行 throttle 函数返回新函数
 const betterFn = throttle_timestamp(() => console.log('fn 函数执行了'), 1000)
 // 每 10 毫秒执行一次 betterFn 函数，但是只有时间差大于 1000 时才会执行 fn
-setInterval(betterFn, 10)
+setInterval(betterFn, 10);
+
+// 伪代码
+let throttle = function(func,wait) {
+    // 一段时间内，只执行一次，时间不到不执行
+    let prev = 0;
+    let context = this;
+    let F = function() {
+        let args = arguments;
+        let now = new Date();
+        if(now - prev > wait) {
+            prev = now;
+            func.apply(context,args);
+        }
+    }
+    return F;
+}

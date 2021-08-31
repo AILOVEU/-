@@ -15,3 +15,19 @@ Function.prototype._call = function(obj,...args) {
 }
 
 func._call(obj,1,2)
+
+// 伪代码
+/**
+ * 
+Function.prototype.__call = function(target,...args) {
+    if(target == null) {
+        target = window;
+    }
+    let context = this;
+    target.fn = context;
+    let res = target.fn(...args); // 传入多个参数
+    delete target.fn;
+    return res; // 返回函数执行
+}
+ * 
+ */

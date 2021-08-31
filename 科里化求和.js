@@ -14,3 +14,21 @@ function add() {
   return inner;
 }
 console.log(add(1,1,1)(1)(1)(2,3).sum());
+
+// 伪代码
+/**
+ * 
+function add() { // 定义函数
+    let args = []; 
+    args.push(...arguments)
+    let F = function() {
+        args.push(...arguments) 
+        return F; // 返回函数
+    }
+    F.toString = function() {
+        return sum(args); // 计算args数组的和
+    }
+    return F;  // 返回函数
+}
+ *
+ */

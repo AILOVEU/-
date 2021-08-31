@@ -23,3 +23,20 @@ console.log(_instanceof(1,Number));
 console.log(_instanceof(new Number(1),Number));
 console.log(_instanceof(new Number(1),Object));
 console.log(_instanceof(null,Object));
+
+// 伪代码
+/**
+ * 
+let _instanceof = function(A,B) {
+  if B not function:
+    return new TypeError('right need callback');
+  if typeof A not in ['function','object'] or A === null:
+    return false;
+  while(A) {
+    A.__proto__ === B.prototype &&  return true;
+    A = A.__proto__;
+  }
+  return false;
+} 
+ * 
+ */

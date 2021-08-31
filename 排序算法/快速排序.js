@@ -24,27 +24,51 @@ function quick(arr, left, right) {
     // 循环结束，j=i
     arr[left] = arr[i];
     arr[i] = pivot;
-    quick(arr, left, i-1);
+    quick(arr, left, i - 1);
     quick(arr, i + 1, right)
   }
 }
 
 // 测试用例
-let testArr = [];
-let arrLen = 1000;
-let numMax = 100;
-let numMin = 1;
-for (let i = 0; i < arrLen; i++) {
-  testArr.push(parseInt(Math.random() * (numMax - numMin + 1)) + numMin);
-}
-quickSort(testArr)
-
-let sortFlag = 0;
-testArr.reduce((a,b) => {
-  if(a>b) {
-    sortFlag += 1;
+(function () {
+  let testArr = [];
+  let arrLen = 1000;
+  let numMax = 100;
+  let numMin = 1;
+  for (let i = 0; i < arrLen; i++) {
+    testArr.push(parseInt(Math.random() * (numMax - numMin + 1)) + numMin);
   }
-  return b;
-})
-console.log(testArr);
-console.log(`是否是升序排列：${sortFlag === 0 ? true : false}`);
+  quickSort(testArr)
+
+  let sortFlag = 0;
+  testArr.reduce((a, b) => {
+    if (a > b) {
+      sortFlag += 1;
+    }
+    return b;
+  })
+  console.log(testArr);
+  console.log(`是否是升序排列：${sortFlag === 0 ? true : false}`);
+})()
+
+// 伪代码
+/**
+ * 
+function quickSort(arr, left, right) {
+  let pivot = random(arr);
+  let pivotIdx = left;
+  let i = left,
+    j = right;
+  while (i < j) {
+    while (arr[j] >= pivot) j--;
+    while(arr[i]<=print) i++;
+    i<j && swap(arr[i],arr[j]);
+  }
+  arr[pivotIdx] = arr[i]; 
+  arr[i] = pivot; // 将pivotIdx的值设置为i处的值，将i处的值设置为pivot
+  // i === j
+  quickSort(arr, left, i - 1);
+  quickSort(arr, i + 1, right);
+}
+ * 
+ */

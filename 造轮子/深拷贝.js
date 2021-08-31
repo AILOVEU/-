@@ -16,8 +16,8 @@ function deepClone(obj) {
         if (obj instanceof RegExp) {
             return new RegExp(obj);
         }
-        if(typeof obj === 'function') {
-            return new Function('return '+obj.toString()).call(this)
+        if (typeof obj === 'function') {
+            return new Function('return ' + obj.toString()).call(this)
         }
         // 数组
         if (Array.isArray(obj)) {
@@ -44,17 +44,17 @@ function deepClone(obj) {
  * 简版深拷贝
  */
 function deepClone_simpler(obj) {
-    if(typeof obj !== 'object' || obj == null)  {
+    if (typeof obj !== 'object' || obj == null) {
         return obj;
     }
-    let result = obj instanceof Array ? []: {};
-    for(let prop of Object.keys(obj)) {
+    let result = obj instanceof Array ? [] : {};
+    for (let prop of Object.keys(obj)) {
         result[prop] = deepClone_simpler(obj[prop]);
     }
     return result;
 }
 
-
+// 测试方法
 (function () {
     const a = {
         num: 123,
@@ -81,3 +81,40 @@ function deepClone_simpler(obj) {
     console.log(copy.arr[2][1] === a.arr[2][1]); // false
     console.log(copy.b.c.d === copy) // true，循环引用得到复制
 })();
+
+// 伪代码
+let deepClone = function (obj) {
+    let weakMap = new weakMap(); // 定义一个存储obj key的值
+    let deep = function (obj) {
+        if (!obj) return obj; // 如果为空，直接返回
+        if (!['object', 'function'].includes(typeof obj)) return obj;// 是基础类型直接返回
+        // 如果是数组
+        if (Array.isArray(obj)) {
+            let result = [];
+            for (let item of obj) {
+                result.push(deep(item));
+            }
+            return result;
+        }
+        // 判断weakmap中是否有obj
+        else if(weakMap.has(obj)) {
+            return weakMap.get(obj);
+        }
+        // 如果是对象
+        else if (typeof obj === 'object') {
+            let result = {};
+            weakMap.set(obj, result); // result是引用后面会被更新
+            // 遍历所有的key
+            for (let key of Object.keys(obj)) {
+                result[key] = deep(obj[key]);
+            }
+            return result;
+        }
+    }
+    deep(obj);
+}
+
+let obj = {
+
+}
+deepClone(obj);

@@ -46,3 +46,25 @@ function _levelOrder(root) {
     }
     return res;
 }
+
+// 伪代码
+/**
+ * 层序遍历
+ */
+/**
+ * function levelOrder(root) {
+    !root &&  return root;
+    // 使用队列存储
+    let queue = [root]; // 直接存入
+    while(queue.length) { 
+        let curLevel = []; // 保存每层存入
+        let length = queue.length;
+        while(length -- ) { 
+            // 添加队列前每个的左右节点
+            node = queue.leftnode
+            queue.push(node.left)
+            queue.push(node.right)
+        }
+    }
+}
+ */
